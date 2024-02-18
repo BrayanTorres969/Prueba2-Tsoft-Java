@@ -75,7 +75,7 @@ public class EmpresaTurismo {
                     System.out.println("Nombres: " + empresa.get(i).getDatosCliente().getNombre());
                     System.out.println("Rut: " + empresa.get(i).getDatosCliente().getRut());
                     System.out.println("***** Datos de alojamiento *****");
-                    System.out.println("El cliente se encuentra alojado en un");
+                    System.out.println("El cliente se encuentra alojado en un/una");
                     System.out.println(empresa.get(i).toString());
 
                 } else {
