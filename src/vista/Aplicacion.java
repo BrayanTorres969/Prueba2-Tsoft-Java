@@ -78,7 +78,7 @@ public class Aplicacion {
                         System.out.println("Por favor, ingrese un alojamiento para continuar ...");
                     } else {
                         System.out.println("Ingrese el número rut del cliente a buscar: ");
-                        String rutCliente = Leer.dato();
+                        String rutCliente = ingresarRutCliente();
                         empresaTurismo.buscarDatosClienteX(rutCliente);
                     }
                     break;
@@ -140,7 +140,7 @@ public class Aplicacion {
                     } else {
                         System.out.println();
                         System.out.println("Ingresar el rut del cliente: ");
-                        String rut = Leer.dato();
+                        String rut = ingresarRutCliente();
                         System.out.println("---------- Valor a cancelar por el cliente -------------");
                         empresaTurismo.valorACancelarPorCliente(rut);
                         System.out.println("--------------------------------------------------------");
@@ -188,8 +188,7 @@ public class Aplicacion {
             datosNombre = nomCliente.split(" ");
         } while (datosNombre.length != 3);
 
-        System.out.println("ingrese rut del cliente: (Ejm 12345678)");
-        String rutCliente = Leer.dato();
+        String rutCliente = ingresarRutCliente();
         return new DatosCliente(nomCliente, rutCliente);
     }
 
@@ -209,8 +208,32 @@ public class Aplicacion {
 
     // Métodos  para ingresar datos y validar
     private static double ingresarValorBaseNoche() {
-        System.out.println("Ingresar el valor base por noche: ");
-        return Leer.datoDouble();
+        double valorBase;
+        do {
+            System.out.println("Ingresar el valor base por noche: ");
+            valorBase = Leer.datoDouble();
+            if (valorBase <= 0) {
+                System.out.println("Respuesta no válida. El valor base debe ser mayor a 0.");
+            }
+        } while (valorBase <= 0);
+        return valorBase;
+    }
+
+    /*
+    Método que recibe el rut del cliente y valida que tenga el formato de 8 caracteres
+    númericos
+     */
+    private static String ingresarRutCliente() {
+        String rut;
+        String regex = "\\d{8}";
+        do {
+            System.out.println("ingrese rut del cliente: (Ejm 12345678)");
+            rut = Leer.dato();
+            if (!rut.matches(regex)) {
+                System.out.println("RUT no válido. Por favor, ingrese un RUT válido de 8 caracteres numéricos.");
+            }
+        } while (!rut.matches(regex));
+        return rut;
     }
 
     /*Este método lanza una pregunta al usuario y se asegura que la respuesta
